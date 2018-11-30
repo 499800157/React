@@ -1,0 +1,170 @@
+webpack的配置
+
+babel-plugin-import  //使用ant-design按需加载css
+
+"babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      [
+        "transform-decorators-legacy"       //redux支持装饰器的写法     //cnpm install babel-plugin-transform-decorators-legacy --save-dev
+      ],
+//如果装饰器这里不能用 使用下面这个
+[
+        "@babel/plugin-proposal-decorators",
+        {
+          "decoratorsBeforeExport": true
+        }
+      ],
+
+      [                                         ////使用ant-design按需加载css
+        "import",
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.5"
+  },
+  "proxy" :""                   //axios处理跨域  路径写服务端的地址
+
+
+安装
+cnpm install react-router-dom --save        //import { BrowserRouter , Route , Link , Redirect , Switch} from "react-router-dom"
+cnpm install react-redux --save             //import {Provider} from "react-redux"
+cnpm install redux-thunk --save        // import thunk from "redux-thunk"
+cnpm install redux --save     //import {createStore , applyMiddleware,compose} from "redux"
+cnpm install axios --save               //import axios from "axios"
+cnpm install antd-mobile@next --save
+
+cnpm install  babel-plugin-import --save-dev        //antd css的按需加载
+[
+    "import",
+    {
+        "libraryName": "antd-mobile",
+        "style": "css"
+    }
+]
+cnpm install babel-plugin-transform-decorators-legacy --save-dev        //装饰器所需
+[
+    "@babel/plugin-proposal-decorators",
+    {
+        "decoratorsBeforeExport": true
+    }
+],
+
+cnpm install express --save             
+cnpm install mongoose --save
+cnpm install body-parser --save         //mongoose 专门接收post传的参数
+cnpm install cookie-parser --save 
+
+
+
+cnpm install utility --save 安装md5加密
+const utility = require("utility)
+使用 utility.md5(pwd)
+
+密码加严
+function md5Pwd (pwd){
+    const salt = "imooc_is_good_dsas454d5s6a56"
+    return utility.md5(utility.md5(pwd+salt))
+}
+md5Pwd（pwd）
+
+
+注册 时不能将cookie的userid存入，需要用到save方法
+ const userModel = new User({user ,type ,pwd : md5Pwd(pwd)})
+    userModel.save(function(e,d){
+        if(e){
+            return res.json({code : 1,msg :"后端出错了"})
+        }
+        const {user ,type ,_id} = d
+        res.cookie("userid" , _id)
+        if(d){
+            return res.json({code : 0 ,data :{user ,type ,_id}})
+        }
+    })
+
+axios {
+    get的方式通过query获取
+    post的方式通过body获取
+}
+cookie的插件
+browser-cookies
+browserCookies.erase("userid") //清除cookie
+
+
+
+
+理解高阶组件
+第一步
+
+function hello(){
+    console.log( "hello react ")
+}
+function wrapperHello (fn){
+    return function(){
+        console.log("before hello")
+        fn()
+        console.log("after hello")
+    }
+}
+hello = wrapperHello(hello)
+这是一个装饰器的模式
+
+通过babel转译 ，其实组件就是一个函数
+
+高阶组件其实就是 给一个组件 返回另外一个组件
+定义一个函数，传进来一个组件，返回另外一个组件，包裹这传进来的组件
+高阶组件有两种{
+    属性代理
+    反向继承
+}
+
+//属性代理
+class Hello extends React.Component {
+    render(){
+        return <h2>hello react</h2>   
+    }
+}
+function WrapperHello(Comp){
+    class WrapComp extends React.Component{
+        render(){
+            return (
+                <div >
+                    <p>这是HOC高阶组件特有的元素</p>
+                    <Comp {...this.props}></Comp>
+                </div>
+            )
+        }
+    }
+    return WrapComp
+}
+Hello = WrapperHello (Hello)
+
+  反向继承
+  class Hello extends React.Component {
+    render(){
+        return <h2>hello react</h2>   
+    }
+}
+function WrapperHello(Comp){
+    class WrapComp extends Comp{
+        componentDidMount(){
+            console.log("高阶组件新增的生命周期，加载完成！")
+        }
+        render(){
+            return (
+                <Comp></Comp>
+            )
+        }
+    }
+    return WrapComp
+}
