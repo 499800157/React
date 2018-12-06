@@ -168,3 +168,19 @@ function WrapperHello(Comp){
     }
     return WrapComp
 }
+
+
+JavaScript强制要求如果要this在构造函数中使用，则必须先调用super
+这就是为什么我建议总是传递下来super(props)，即使它不是绝对必要的：
+
+
+createStore方法需要记忆，以及compose连接redux插件
+
+
+项目采用前后台分离
+前台数据展现，使用react全家桶 react + react-router +……
+
+后台项目基于node的 路由用express做的 mongodb数据存储
+
+前后台交互使用 ajax请求 通过axios库  async / await  (es7中)
+测试API接口 postman
