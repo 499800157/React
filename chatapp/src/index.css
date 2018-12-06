@@ -16,3 +16,10 @@ code {
   color: red;
   font-size: 20px;
 }
+.am-tab-bar{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
