@@ -4,12 +4,12 @@ import { connect } from "react-redux"
 
 import { getUserLIst } from "../../redux/chat.redux"
 
-class Accept extends React.Component{
+class Release extends React.Component{
     constructor(props){
         super(props)
     }
     componentDidMount(){
-        this.props.getUserLIst("release")
+        this.props.getUserLIst("accept")
     }
     render(){
         const {userlist} =  this.props
@@ -21,5 +21,5 @@ class Accept extends React.Component{
     }
 }
 
-Accept = connect( state => state.chat , {getUserLIst})(Accept)
-export default Accept
+Release = connect( state => state.chat , {getUserLIst})(Release)
+export default Release

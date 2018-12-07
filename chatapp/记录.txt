@@ -70,6 +70,7 @@ cnpm install cookie-parser --save
 cnpm install utility --save 安装md5加密
 const utility = require("utility)
 使用 utility.md5(pwd)
+或者使用 blueimp-md5库
 
 密码加严
 function md5Pwd (pwd){
@@ -169,6 +170,23 @@ function WrapperHello(Comp){
     return WrapComp
 }
 
+配置使用less
+安装
+ cnpm install less less-loader --save-dev
+webpack.config.dev.js 修改 添加一项 同理在webpack.config.prod.js也修改
+{
+  test: /\.less$/,
+  use: [
+      require.resolve('style-loader'),
+      {
+          loader: require.resolve('css-loader')
+      },
+      {
+          loader: require.resolve('less-loader'), // compiles Less to CSS
+      },
+  ],
+},
+
 
 JavaScript强制要求如果要this在构造函数中使用，则必须先调用super
 这就是为什么我建议总是传递下来super(props)，即使它不是绝对必要的：
@@ -184,3 +202,93 @@ createStore方法需要记忆，以及compose连接redux插件
 
 前后台交互使用 ajax请求 通过axios库  async / await  (es7中)
 测试API接口 postman
+
+
+
+
+1.删除原有文件
+src/下建立文件目录
+
+2.引入antd-mobile
+安装
+cnpm install --save antd-mobile@next 
+cnpm install react-app-rewired --save-dev
+
+不能npm run eject , 否则会报错
+3.修改/* package.json */
+"scripts": {
+-   "start": "react-scripts start",
++   "start": "react-app-rewired start",
+-   "build": "react-scripts build",
++   "build": "react-app-rewired build",
+-   "test": "react-scripts test --env=jsdom",
++   "test": "react-app-rewired test --env=jsdom",
+}
+
+4.然后在项目根目录创建一个 config-overrides.js 用于修改默认配置。
+module.exports = function override(config, env) {
+  // do stuff with the webpack config...
+  return config;
+};
+//按需加载
+cnpm install babel-plugin-import --save-dev    
+ 在config-overrides.js文件下添加
+const { injectBabelPlugin } = require('react-app-rewired');
+  module.exports = function override(config, env) {
++   config = injectBabelPlugin(['import', { libraryName: 'antd-mobile', style: 'css' }], config);
+    return config;
+  };
+
+  5.页面的处理
+  index.html
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,
+    minimum-scale=1, user-scalable=no" />
+
+<!-- 解决300毫秒的延迟 -->
+<script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+<script>
+    if ('addEventListener' in document) {
+        document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+        }, false);
+        }
+        if(!window.Promise) {
+        document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+    }
+</script>
+
+6.自定义主题（未成功）
+安装
+cnpm install --save-dev less@2.7.3 less-loader
+
+配置: config-overrides.js
+
+寻求他法
+.am-button-primary{
+    background: green;
+}
+.am-button-primary.am-button-active{
+    background: red;
+}
+
+
+7.引入less
+安装
+npm install react-app-rewire-less
+
+ 在config-overrides.js文件下添加
+const { injectBabelPlugin } = require('react-app-rewired');
+const rewireLess = require("react-app-rewire-less");
+
+module.exports = function override(config, env) {
+    // do stuff with the webpack config... 
+    config = injectBabelPlugin(['import', { libraryName: 'antd-mobile', style: 'css' }], config);
+    config = rewireLess.withLoaderOptions({
+        // modifyVars: { "@brand-primary": "#1cae82" , "@brand-primary-tap": "#1DA57A", }, //配置主题未生效
+    })(config, env);
+    return config;
+};
+
+
+
+

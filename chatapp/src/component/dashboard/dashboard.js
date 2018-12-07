@@ -3,27 +3,15 @@ import { Route , Switch} from "react-router-dom"
 import { NavBar , WingBlank , WhiteSpace ,TabBar } from "antd-mobile"
 import { connect } from "react-redux"
 
-function Accept (){
-    return <h2>接受着展示任务列表</h2>
-}
-
-function Release (){
-    return <h2>发布任务者展示人物列表</h2>
-}
-
-function User (){
-    return <h2>User</h2>
-}
+import Accept from "../accept/accept"
+import Release  from "../release/release"
+import User from "../user/user"
 
 function Msg (){
     return <h2>Msg</h2>
 }
 
 class Dashboard extends React.Component{
-
-    state = {
-
-    }
 
     render(){
         console.log(this.props)
@@ -32,7 +20,7 @@ class Dashboard extends React.Component{
         const navList = [
             {
                 path: "/accept",
-                title:"发布任务列表",
+                title:"任务列表",
                 text:"任务列表",
                 icon:"release",
                 component:Accept,
@@ -40,7 +28,7 @@ class Dashboard extends React.Component{
             },
             {
                 path: "/release",
-                title:"能力者列表",
+                title:"用户列表",
                 text:"用户列表",
                 icon:"accept",
                 component:Release,
@@ -72,7 +60,9 @@ class Dashboard extends React.Component{
         return (
             <div>
                 <NavBar>{activeList.title}</NavBar>
+                <div style = {{marginTop : 45 , marginBottom : 55}}>
                     <Route component = {activeList.component}></Route>
+                </div>
                 <TabBar
                     unselectedTintColor="#949494"
                     tintColor="#33A3F4"

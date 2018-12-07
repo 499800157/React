@@ -3,8 +3,10 @@ const Router = express.Router()
 const Utility = require("utility")
 
 const model = require("./model")
-
 const User = model.getModel("user")
+
+// 过滤条件 不让他们显示
+const _filter = {"pwd": 0 ,"__v" : 0}
 
 // 用户信息
 Router.get("/info",function(req , res){
@@ -26,8 +28,9 @@ Router.get("/info",function(req , res){
 // 用户列表
 Router.get("/list",function(req , res){
     // User.remove({},function(){})
-    User.find({},function(err,doc){
-        return res.json({code : 0 , data : doc})
+    const {type} = req.query
+    User.find({type},_filter,function(err,doc){
+        return res.json({code : 0 , data :doc})
     })
 })
 
@@ -55,7 +58,7 @@ Router.post("/register",function(req, res){
 // 登录
 Router.post("/login",function(req, res){
     const {user,pwd} = req.body
-    User.findOne({user,pwd : md5pwd(pwd)},function(err,doc) {
+    User.findOne({user,pwd : md5pwd(pwd)},_filter,function(err,doc) {
         if(!doc){
             return res.json({code : 1 , msg : "用户名或密码错误！"})
         }

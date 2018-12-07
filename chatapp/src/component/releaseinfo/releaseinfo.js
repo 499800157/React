@@ -22,10 +22,11 @@ class Releaseinfo extends React.Component{
     }
     
     render(){
-        const {handleChange} = this.props
+        const {handleChange , redirectTo} = this.props
+        const {pathname} = this.props.location
         return (
             <div>
-                {this.props.redirectTo ? <Redirect to = {this.props.redirectTo}></Redirect>  : null }
+                {redirectTo && redirectTo !== pathname ? <Redirect to = {this.props.redirectTo}></Redirect>  : null }
                 <NavBar
                     mode="dark"
                     >release完善信息</NavBar>

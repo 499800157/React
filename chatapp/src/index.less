@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+//   background: red!important;
 }
 
 code {
@@ -16,10 +17,21 @@ code {
   color: red;
   font-size: 20px;
 }
-.am-tab-bar{
-    position: absolute;
-    left: 0;
-    bottom: 0;
+
+.absolute{
+    position: fixed;
     width: 100%;
+    left: 0;
+    z-index: 99;
 }
 
+.am-tab-bar{
+    .absolute;
+    bottom: 0;
+    height: auto!important;
+}
+
+.fixed-header,.am-navbar {
+    top: 0;
+    .absolute;
+}

@@ -38,7 +38,7 @@ class SelectAvatar extends React.Component{
             }
         })
         return (
-            <div>
+            <div style = {{marginTop:45}}>
                 <List renderHeader = {() => gridHeader}>
                     <Grid data={data} activeStyle={false} columnNum = {3} onClick = {this.handleClick}></Grid>
                 </List>

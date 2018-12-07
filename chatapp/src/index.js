@@ -5,7 +5,7 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import {BrowserRouter , Route , Switch , Redirect} from "react-router-dom"
 
-import './index.css'
+import './index.less'
 import App from './App'
 import reducer from "./reducer"
 import AuthRoute from "./component/authRoute/authRoute"
