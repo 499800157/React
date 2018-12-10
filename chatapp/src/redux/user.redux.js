@@ -5,7 +5,7 @@ import {getRediectUrl} from "../util"
 const AUTH_SUCCESS = "AUTH_SUCCESS"
 const INFO_UPDATE = "INFO_UPDATE"
 const ERROR_MSG = "ERROR_MSG"
-
+const LOGOUT = "LOGOUT"
 
 const initstate = {
     user : "",
@@ -22,6 +22,8 @@ export function user (state = initstate, action){
             return {...state , msg : action.msg }
         case INFO_UPDATE : 
             return {...state }
+        case LOGOUT : 
+            return {...initstate}
         default : 
             return state
     }
@@ -96,4 +98,9 @@ export function infoUpdate(data){
                 }
             })
     }
+}
+
+// 退出登录
+export function logout(){
+    return {type : LOGOUT}
 }

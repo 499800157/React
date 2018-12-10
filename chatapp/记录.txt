@@ -1,7 +1,4 @@
 webpack的配置
-
-babel-plugin-import  //使用ant-design按需加载css
-
 "babel": {
     "presets": [
       "react-app"
@@ -10,21 +7,13 @@ babel-plugin-import  //使用ant-design按需加载css
       [
         "transform-decorators-legacy"       //redux支持装饰器的写法     //cnpm install babel-plugin-transform-decorators-legacy --save-dev
       ],
-//如果装饰器这里不能用 使用下面这个
-[
+    //如果装饰器这里不能用 使用下面这个
+    [
         "@babel/plugin-proposal-decorators",
         {
           "decoratorsBeforeExport": true
         }
       ],
-
-      [                                         ////使用ant-design按需加载css
-        "import",
-        {
-          "libraryName": "antd-mobile",
-          "style": "css"
-        }
-      ]
     ]
   },
   "eslintConfig": {
@@ -37,21 +26,6 @@ babel-plugin-import  //使用ant-design按需加载css
 
 
 安装
-cnpm install react-router-dom --save        //import { BrowserRouter , Route , Link , Redirect , Switch} from "react-router-dom"
-cnpm install react-redux --save             //import {Provider} from "react-redux"
-cnpm install redux-thunk --save        // import thunk from "redux-thunk"
-cnpm install redux --save     //import {createStore , applyMiddleware,compose} from "redux"
-cnpm install axios --save               //import axios from "axios"
-cnpm install antd-mobile@next --save
-
-cnpm install  babel-plugin-import --save-dev        //antd css的按需加载
-[
-    "import",
-    {
-        "libraryName": "antd-mobile",
-        "style": "css"
-    }
-]
 cnpm install babel-plugin-transform-decorators-legacy --save-dev        //装饰器所需
 [
     "@babel/plugin-proposal-decorators",
@@ -60,10 +34,7 @@ cnpm install babel-plugin-transform-decorators-legacy --save-dev        //装饰
     }
 ],
 
-cnpm install express --save             
-cnpm install mongoose --save
-cnpm install body-parser --save         //mongoose 专门接收post传的参数
-cnpm install cookie-parser --save 
+
 
 
 

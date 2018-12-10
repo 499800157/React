@@ -6,3 +6,4 @@ export function getRediectUrl ({type,avatar}){
     }
     return url
 }
+
